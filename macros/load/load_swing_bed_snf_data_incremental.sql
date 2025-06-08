@@ -8,7 +8,7 @@
     {% set file_list_results = run_query(list_files_query) %}
 
     {% for row in file_list_results %}
-        {% set file_name = row[0] %}
+        {% set file_name = row[1] %}
 
         {% if file_name.endswith('.csv') and 'Swing_Bed_SNF_data' in file_name %}
 
@@ -23,7 +23,8 @@
                 {% set copy_sql %}
                     COPY INTO HEALTHCARE.RAW.SWING_BED_SNF_DATA
                     FROM @HEALTHCARE.RAW.MY_STAGE/{{ file_name }}
-                    FILE_FORMAT = (TYPE = CSV FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER=1);
+                    FILE_FORMAT = (TYPE = CSV FIELD_OPTIONALLY_ENCLOSED_BY='"' PARSE_HEADER = TRUE)
+                    MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE;
                 {% endset %}
 
                 {% do run_query(copy_sql) %}
