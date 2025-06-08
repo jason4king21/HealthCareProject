@@ -2,7 +2,7 @@
 {% macro load_provider_information_incremental() %}
 
     {% set list_files_query %}
-        LIST @my_stage/NH_ProviderInfo_*.csv;
+        LIST @HEALTHCARE.RAW.MY_STAGE/NH_ProviderInfo_*.csv;
     {% endset %}
 
     {% set file_list_results = run_query(list_files_query) %}
@@ -20,7 +20,7 @@
 
             {% set copy_sql %}
                 COPY INTO HEALTHCARE.RAW.PROVIDER_INFORMATION
-                FROM @my_stage/{{ file_name }}
+                FROM @HEALTHCARE.RAW.MY_STAGE/{{ file_name }}
                 FILE_FORMAT = (TYPE = CSV FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER=1);
             {% endset %}
 

@@ -2,7 +2,7 @@
 {% macro load_fire_safety_deficiencies_incremental() %}
 
     {% set list_files_query %}
-        LIST @my_stage/NH_FireSafetyCitations_*.csv;
+        LIST @HEALTHCARE.RAW.MY_STAGE/NH_FireSafetyCitations_*.csv;
     {% endset %}
 
     {% set file_list_results = run_query(list_files_query) %}
@@ -20,7 +20,7 @@
 
             {% set copy_sql %}
                 COPY INTO HEALTHCARE.RAW.FIRE_SAFETY_DEFICIENCIES
-                FROM @my_stage/{{ file_name }}
+                FROM @HEALTHCARE.RAW.MY_STAGE/{{ file_name }}
                 FILE_FORMAT = (TYPE = CSV FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER=1);
             {% endset %}
 

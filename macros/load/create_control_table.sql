@@ -1,3 +1,4 @@
+
 {% macro create_control_table() %}
 
     {% set sql %}
@@ -11,4 +12,3 @@
     {% do run_query(sql) %}
 
 {% endmacro %}
-

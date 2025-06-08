@@ -2,7 +2,7 @@
 {% macro load_mds_quality_measures_incremental() %}
 
     {% set list_files_query %}
-        LIST @my_stage/NH_QualityMsr_MDS_*.csv;
+        LIST @HEALTHCARE.RAW.MY_STAGE/NH_QualityMsr_MDS_*.csv;
     {% endset %}
 
     {% set file_list_results = run_query(list_files_query) %}
@@ -20,7 +20,7 @@
 
             {% set copy_sql %}
                 COPY INTO HEALTHCARE.RAW.MDS_QUALITY_MEASURES
-                FROM @my_stage/{{ file_name }}
+                FROM @HEALTHCARE.RAW.MY_STAGE/{{ file_name }}
                 FILE_FORMAT = (TYPE = CSV FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER=1);
             {% endset %}
 
