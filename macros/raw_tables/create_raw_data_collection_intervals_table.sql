@@ -1,12 +1,16 @@
 
 {% macro create_raw_data_collection_intervals_table() %}
 
-    CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.DATA_COLLECTION_INTERVALS (
-        MEASURE_CODE STRING,
+    {% set sql %}
+        CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.DATA_COLLECTION_INTERVALS (
+            MEASURE_CODE STRING,
         MEASURE_DESCRIPTION STRING,
         DATA_COLLECTION_PERIOD_FROM_DATE DATE,
         DATA_COLLECTION_PERIOD_THROUGH_DATE DATE,
         PROCESSING_DATE DATE
-    );
+        )
+    {% endset %}
+
+    {% do run_query(sql) %}
 
 {% endmacro %}

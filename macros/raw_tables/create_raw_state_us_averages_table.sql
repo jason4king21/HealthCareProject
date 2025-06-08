@@ -1,12 +1,16 @@
 
 {% macro create_raw_state_us_averages_table() %}
 
-    CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.STATE_US_AVERAGES (
-        STATE_OR_NATION STRING,
+    {% set sql %}
+        CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.STATE_US_AVERAGES (
+            STATE_OR_NATION STRING,
         AVERAGE_NUMBER_OF_RESIDENTS_PER_DAY NUMBER,
         REPORTED_TOTAL_NURSE_STAFFING_HOURS_PER_RESIDENT_PER_DAY NUMBER,
         FINE_AMOUNT_IN_DOLLARS NUMBER,
         PROCESSING_DATE DATE
-    );
+        )
+    {% endset %}
+
+    {% do run_query(sql) %}
 
 {% endmacro %}

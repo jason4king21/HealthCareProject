@@ -1,12 +1,16 @@
 
 {% macro create_raw_covid19_vax_provider_table() %}
 
-    CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.COVID19_VAX_PROVIDER (
-        CMS_CERTIFICATION_NUMBER STRING,
+    {% set sql %}
+        CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.COVID19_VAX_PROVIDER (
+            CMS_CERTIFICATION_NUMBER STRING,
         STATE STRING,
         PERCENT_OF_RESIDENTS_WHO_ARE_UP_TO_DATE NUMBER,
         PERCENT_OF_STAFF_WHO_ARE_UP_TO_DATE NUMBER,
         DATE_VACCINATION_DATA_LAST_UPDATED DATE
-    );
+        )
+    {% endset %}
+
+    {% do run_query(sql) %}
 
 {% endmacro %}

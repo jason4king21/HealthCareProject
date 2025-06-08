@@ -1,13 +1,17 @@
 
 {% macro create_raw_mds_quality_measures_table() %}
 
-    CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.MDS_QUALITY_MEASURES (
-        CMS_CERTIFICATION_NUMBER STRING,
+    {% set sql %}
+        CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.MDS_QUALITY_MEASURES (
+            CMS_CERTIFICATION_NUMBER STRING,
         PROVIDER_NAME STRING,
         MEASURE_CODE NUMBER,
         MEASURE_DESCRIPTION STRING,
         FOUR_QUARTER_AVERAGE_SCORE NUMBER,
         PROCESSING_DATE DATE
-    );
+        )
+    {% endset %}
+
+    {% do run_query(sql) %}
 
 {% endmacro %}

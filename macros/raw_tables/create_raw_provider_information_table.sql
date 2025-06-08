@@ -1,8 +1,9 @@
 
 {% macro create_raw_provider_information_table() %}
 
-    CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.PROVIDER_INFORMATION (
-        CMS_CERTIFICATION_NUMBER STRING,
+    {% set sql %}
+        CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.PROVIDER_INFORMATION (
+            CMS_CERTIFICATION_NUMBER STRING,
         PROVIDER_NAME STRING,
         PROVIDER_ADDRESS STRING,
         CITY_TOWN STRING,
@@ -10,6 +11,9 @@
         ZIP_CODE NUMBER,
         TELEPHONE_NUMBER NUMBER,
         PROCESSING_DATE DATE
-    );
+        )
+    {% endset %}
+
+    {% do run_query(sql) %}
 
 {% endmacro %}
