@@ -4,11 +4,11 @@
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS (
     "State" STRING,
-    "5_Stars" STRING,
-    "4_Stars" STRING,
-    "3_Stars" STRING,
-    "2_Stars" STRING,
-    "1_Star" STRING
+    "5 Stars" STRING,
+    "4 Stars" STRING,
+    "3 Stars" STRING,
+    "2 Stars" STRING,
+    "1 Star" STRING
         );
     {% endset %}
 

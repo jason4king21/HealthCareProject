@@ -3,19 +3,19 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.OWNERSHIP (
-    "CMS_Certification_Number_(CCN)" NUMBER,
-    "Provider_Name" STRING,
-    "Provider_Address" STRING,
-    "City_Town" STRING,
+    "CMS Certification Number (CCN)" NUMBER,
+    "Provider Name" STRING,
+    "Provider Address" STRING,
+    "City/Town" STRING,
     "State" STRING,
-    "ZIP_Code" NUMBER,
-    "Role_played_by_Owner_or_Manager_in_Facility" STRING,
-    "Owner_Type" STRING,
-    "Owner_Name" STRING,
-    "Ownership_Percentage" STRING,
-    "Association_Date" STRING,
+    "ZIP Code" NUMBER,
+    "Role played by Owner or Manager in Facility" STRING,
+    "Owner Type" STRING,
+    "Owner Name" STRING,
+    "Ownership Percentage" STRING,
+    "Association Date" STRING,
     "Location" STRING,
-    "Processing_Date" STRING
+    "Processing Date" STRING
         );
     {% endset %}
 

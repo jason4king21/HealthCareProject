@@ -3,23 +3,23 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.MEDICARE_CLAIMS_QUALITY_MEASURES (
-    "CMS_Certification_Number_(CCN)" STRING,
-    "Provider_Name" STRING,
-    "Provider_Address" STRING,
-    "City_Town" STRING,
+    "CMS Certification Number (CCN)" STRING,
+    "Provider Name" STRING,
+    "Provider Address" STRING,
+    "City/Town" STRING,
     "State" STRING,
-    "ZIP_Code" NUMBER,
-    "Measure_Code" NUMBER,
-    "Measure_Description" STRING,
-    "Resident_type" STRING,
-    "Adjusted_Score" FLOAT,
-    "Observed_Score" FLOAT,
-    "Expected_Score" FLOAT,
-    "Footnote_for_Score" FLOAT,
-    "Used_in_Quality_Measure_Five_Star_Rating" STRING,
-    "Measure_Period" STRING,
+    "ZIP Code" NUMBER,
+    "Measure Code" NUMBER,
+    "Measure Description" STRING,
+    "Resident type" STRING,
+    "Adjusted Score" FLOAT,
+    "Observed Score" FLOAT,
+    "Expected Score" FLOAT,
+    "Footnote for Score" FLOAT,
+    "Used in Quality Measure Five Star Rating" STRING,
+    "Measure Period" STRING,
     "Location" STRING,
-    "Processing_Date" STRING
+    "Processing Date" STRING
         );
     {% endset %}
 

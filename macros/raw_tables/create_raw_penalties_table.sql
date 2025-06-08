@@ -3,19 +3,19 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.PENALTIES (
-    "CMS_Certification_Number_(CCN)" STRING,
-    "Provider_Name" STRING,
-    "Provider_Address" STRING,
-    "City_Town" STRING,
+    "CMS Certification Number (CCN)" STRING,
+    "Provider Name" STRING,
+    "Provider Address" STRING,
+    "City/Town" STRING,
     "State" STRING,
-    "ZIP_Code" NUMBER,
-    "Penalty_Date" STRING,
-    "Penalty_Type" STRING,
-    "Fine_Amount" FLOAT,
-    "Payment_Denial_Start_Date" STRING,
-    "Payment_Denial_Length_in_Days" FLOAT,
+    "ZIP Code" NUMBER,
+    "Penalty Date" STRING,
+    "Penalty Type" STRING,
+    "Fine Amount" FLOAT,
+    "Payment Denial Start Date" STRING,
+    "Payment Denial Length in Days" FLOAT,
     "Location" STRING,
-    "Processing_Date" STRING
+    "Processing Date" STRING
         );
     {% endset %}
 

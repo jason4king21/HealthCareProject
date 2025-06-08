@@ -3,12 +3,12 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.DATA_COLLECTION_INTERVALS (
-    "Measure_Code" STRING,
-    "Measure_Description" STRING,
-    "Data_Collection_Period_From_Date" STRING,
-    "Data_Collection_Period_Through_Date" STRING,
-    "Measure_Date_Range" FLOAT,
-    "Processing_Date" NUMBER
+    "Measure Code" STRING,
+    "Measure Description" STRING,
+    "Data Collection Period From Date" STRING,
+    "Data Collection Period Through Date" STRING,
+    "Measure Date Range" FLOAT,
+    "Processing Date" NUMBER
         );
     {% endset %}
 
