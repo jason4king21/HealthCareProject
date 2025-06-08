@@ -3,11 +3,11 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.COVID19_VAX_STATE_NATIONAL_AVERAGES (
-            STATE STRING,
-        PERCENT_OF_RESIDENTS_WHO_ARE_UP_TO_DATE NUMBER,
-        PERCENT_OF_STAFF_WHO_ARE_UP_TO_DATE NUMBER,
-        DATE_VACCINATION_DATA_LAST_UPDATED DATE
-        )
+    "State" STRING,
+    "Percent_of_residents_who_are_up_to_date_on_their_vaccines" FLOAT,
+    "Percent_of_staff_who_are_up_to_date_on_their_vaccines" FLOAT,
+    "Date_vaccination_data_last_updated" STRING
+        );
     {% endset %}
 
     {% do run_query(sql) %}

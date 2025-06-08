@@ -3,12 +3,12 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.INSPECTION_DATES (
-            CMS_CERTIFICATION_NUMBER STRING,
-        SURVEY_DATE DATE,
-        TYPE_OF_SURVEY STRING,
-        SURVEY_CYCLE NUMBER,
-        PROCESSING_DATE DATE
-        )
+    "CMS_Certification_Number_(CCN)" NUMBER,
+    "Survey_Date" STRING,
+    "Type_of_Survey" STRING,
+    "Survey_Cycle" NUMBER,
+    "Processing_Date" STRING
+        );
     {% endset %}
 
     {% do run_query(sql) %}
