@@ -23,7 +23,8 @@
                 {% set copy_sql %}
                     COPY INTO HEALTHCARE.RAW.OWNERSHIP
                     FROM @HEALTHCARE.RAW.MY_STAGE/{{ file_name }}
-                    FILE_FORMAT = (TYPE = CSV FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER=1);
+                    FILE_FORMAT = (TYPE = CSV FIELD_OPTIONALLY_ENCLOSED_BY='"' SKIP_HEADER=1)
+                    MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE;
                 {% endset %}
 
                 {% do run_query(copy_sql) %}
