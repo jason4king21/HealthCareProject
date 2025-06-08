@@ -10,7 +10,7 @@
     {% for row in file_list_results %}
         {% set file_name = row[0] %}
 
-        {% if file_name is match('.*NH_QualityMsr_MDS_.*\.csv') %}
+        {% if file_name.endswith('.csv') and 'NH_QualityMsr_MDS_' in file_name %}
 
             {% set check_query %}
                 SELECT COUNT(*) FROM HEALTHCARE.RAW.RAW_LOADED_FILES WHERE FILE_NAME = '{{ file_name }}';
