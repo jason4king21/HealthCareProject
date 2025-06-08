@@ -27,6 +27,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 on-run-start:
   - "{{ create_raw_provider_information_table() }}"
   - "{{ create_raw_state_us_averages_table() }}"
+  - "{{ create_raw_data_collection_intervals_table() }}"
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
