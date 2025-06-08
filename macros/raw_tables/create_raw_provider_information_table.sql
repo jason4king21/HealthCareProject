@@ -1,18 +1,8 @@
 
 {% macro create_raw_provider_information_table() %}
 
-    {% set table_exists_query %}
-        SELECT COUNT(*) 
-        FROM INFORMATION_SCHEMA.TABLES
-        WHERE TABLE_SCHEMA = 'RAW' 
-          AND TABLE_NAME = 'PROVIDER_INFORMATION'
-    {% endset %}
-
-    {% set results = run_query(table_exists_query) %}
-    {% if results.columns[0].values()[0] == 0 %}
-
-        CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.PROVIDER_INFORMATION (
-            CMS_CERTIFICATION_NUMBER STRING,
+    CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.PROVIDER_INFORMATION (
+        CMS_CERTIFICATION_NUMBER STRING,
         PROVIDER_NAME STRING,
         PROVIDER_ADDRESS STRING,
         CITY_TOWN STRING,
@@ -62,10 +52,6 @@
         LONGITUDE NUMBER,
         GEOCODING_FOOTNOTE NUMBER,
         PROCESSING_DATE DATE
-        );
-
-    {% else %}
-        -- Table PROVIDER_INFORMATION already exists. Skipping.
-    {% endif %}
+    );
 
 {% endmacro %}
