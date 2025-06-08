@@ -3,11 +3,11 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.CITATION_CODE_LOOKUP (
-    "Deficiency_Prefix" STRING,
-    "Deficiency_Tag_Number" NUMBER,
-    "Deficiency_Prefix_and_Number" STRING,
-    "Deficiency_Description" STRING,
-    "Deficiency_Category" STRING
+    "Deficiency Prefix" STRING,
+    "Deficiency Tag Number" NUMBER,
+    "Deficiency Prefix and Number" STRING,
+    "Deficiency Description" STRING,
+    "Deficiency Category" STRING
         );
     {% endset %}
 

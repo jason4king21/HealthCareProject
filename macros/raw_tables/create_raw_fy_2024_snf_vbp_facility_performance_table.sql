@@ -3,26 +3,26 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.FY_2024_SNF_VBP_FACILITY_PERFORMANCE (
-    "SNF_VBP_Program_Ranking" NUMBER,
-    "Footnote____SNF_VBP_Program_Ranking" FLOAT,
-    "CMS_Certification_Number_(CCN)" NUMBER,
-    "Provider_Name" STRING,
-    "Provider_Address" STRING,
-    "City_Town" STRING,
+    "SNF VBP Program Ranking" NUMBER,
+    "Footnote -- SNF VBP Program Ranking" FLOAT,
+    "CMS Certification Number (CCN)" NUMBER,
+    "Provider Name" STRING,
+    "Provider Address" STRING,
+    "City/Town" STRING,
     "State" STRING,
-    "ZIP_Code" NUMBER,
-    "Baseline_Period:_FY_2019_Risk_Standardized_Readmission_Rate" STRING,
-    "Footnote____Baseline_Period:_FY_2019_Risk_Standardized_Readmission_Rate" STRING,
-    "Performance_Period:_FY_2022_Risk_Standardized_Readmission_Rate" FLOAT,
-    "Footnote____Performance_Period:_FY_2022_Risk_Standardized_Readmission_Rate" FLOAT,
-    "Achievement_Score" FLOAT,
-    "Footnote____Achievement_Score" FLOAT,
-    "Improvement_Score" STRING,
-    "Footnote____Improvement_Score" STRING,
-    "Performance_Score" FLOAT,
-    "Footnote____Performance_Score" FLOAT,
-    "Incentive_Payment_Multiplier" FLOAT,
-    "Footnote____Incentive_Payment_Multiplier" FLOAT
+    "ZIP Code" NUMBER,
+    "Baseline Period: FY 2019 Risk-Standardized Readmission Rate" STRING,
+    "Footnote -- Baseline Period: FY 2019 Risk-Standardized Readmission Rate" STRING,
+    "Performance Period: FY 2022 Risk-Standardized Readmission Rate" FLOAT,
+    "Footnote -- Performance Period: FY 2022 Risk-Standardized Readmission Rate" FLOAT,
+    "Achievement Score" FLOAT,
+    "Footnote -- Achievement Score" FLOAT,
+    "Improvement Score" STRING,
+    "Footnote -- Improvement Score" STRING,
+    "Performance Score" FLOAT,
+    "Footnote -- Performance Score" FLOAT,
+    "Incentive Payment Multiplier" FLOAT,
+    "Footnote -- Incentive Payment Multiplier" FLOAT
         );
     {% endset %}
 

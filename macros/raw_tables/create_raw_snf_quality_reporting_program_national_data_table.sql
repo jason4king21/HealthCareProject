@@ -3,13 +3,13 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.SNF_QUALITY_REPORTING_PROGRAM_NATIONAL_DATA (
-    "CMS_Certification_Number_(CCN)" STRING,
-    "Measure_Code" STRING,
+    "CMS Certification Number (CCN)" STRING,
+    "Measure Code" STRING,
     "Score" FLOAT,
     "Footnote" STRING,
-    "Start_Date" STRING,
-    "End_Date" STRING,
-    "Measure_Date_Range" STRING
+    "Start Date" STRING,
+    "End Date" STRING,
+    "Measure Date Range" STRING
         );
     {% endset %}
 
