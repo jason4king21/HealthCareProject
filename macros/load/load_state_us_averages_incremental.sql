@@ -11,7 +11,7 @@
         {% set file_name = row[0] %}
 
         {% set check_query %}
-            SELECT COUNT(*) FROM HEALTHCARE.RAW_LOADED_FILES WHERE FILE_NAME = '{{ file_name }}';
+            SELECT COUNT(*) FROM HEALTHCARE.RAW.RAW_LOADED_FILES WHERE FILE_NAME = '{{ file_name }}';
         {% endset %}
 
         {% set check_result = run_query(check_query) %}
@@ -27,7 +27,7 @@
             {% do run_query(copy_sql) %}
 
             {% set insert_sql %}
-                INSERT INTO HEALTHCARE.RAW_LOADED_FILES (FILE_NAME, LOAD_TIMESTAMP, TARGET_TABLE)
+                INSERT INTO HEALTHCARE.RAW.RAW_LOADED_FILES (FILE_NAME, LOAD_TIMESTAMP, TARGET_TABLE)
                 VALUES ('{{ file_name }}', CURRENT_TIMESTAMP, 'HEALTHCARE.RAW.STATE_US_AVERAGES');
             {% endset %}
 
