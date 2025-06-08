@@ -15,5 +15,10 @@
     {% do load_penalties_incremental() %}
     {% do load_covid19_vax_provider_incremental() %}
     {% do load_covid19_vax_state_national_averages_incremental() %}
+    {% do load_fy_2024_snf_vbp_aggregate_performance_incremental() %}
+    {% do load_fy_2024_snf_vbp_facility_performance_incremental() %}
+    {% do load_snf_quality_reporting_program_national_data_incremental() %}
+    {% do load_snf_quality_reporting_program_provider_data_incremental() %}
+    {% do load_swing_bed_snf_data_incremental() %}
 
 {% endmacro %}
