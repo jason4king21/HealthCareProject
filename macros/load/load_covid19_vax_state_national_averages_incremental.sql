@@ -2,7 +2,7 @@
 {% macro load_covid19_vax_state_national_averages_incremental() %}
 
     {% set list_files_query %}
-        LIST @HEALTHCARE.RAW.MY_STAGE/NH_CovidVaxAverages_*.csv;
+        LIST @HEALTHCARE.RAW.MY_STAGE/*/NH_CovidVaxAverages_*.csv;
     {% endset %}
 
     {% set file_list_results = run_query(list_files_query) %}

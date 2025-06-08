@@ -2,7 +2,7 @@
 {% macro load_mds_quality_measures_incremental() %}
 
     {% set list_files_query %}
-        LIST @HEALTHCARE.RAW.MY_STAGE/NH_QualityMsr_MDS_*.csv;
+        LIST @HEALTHCARE.RAW.MY_STAGE/*/NH_QualityMsr_MDS_*.csv;
     {% endset %}
 
     {% set file_list_results = run_query(list_files_query) %}

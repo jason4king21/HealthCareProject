@@ -2,7 +2,7 @@
 {% macro load_covid19_vax_provider_incremental() %}
 
     {% set list_files_query %}
-        LIST @HEALTHCARE.RAW.MY_STAGE/NH_CovidVaxProvider_*.csv;
+        LIST @HEALTHCARE.RAW.MY_STAGE/*/NH_CovidVaxProvider_*.csv;
     {% endset %}
 
     {% set file_list_results = run_query(list_files_query) %}

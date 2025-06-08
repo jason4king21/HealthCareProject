@@ -2,7 +2,7 @@
 {% macro load_ownership_incremental() %}
 
     {% set list_files_query %}
-        LIST @HEALTHCARE.RAW.MY_STAGE/NH_Ownership_*.csv;
+        LIST @HEALTHCARE.RAW.MY_STAGE/*/NH_Ownership_*.csv;
     {% endset %}
 
     {% set file_list_results = run_query(list_files_query) %}

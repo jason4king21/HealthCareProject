@@ -2,7 +2,7 @@
 {% macro load_citation_code_lookup_incremental() %}
 
     {% set list_files_query %}
-        LIST @HEALTHCARE.RAW.MY_STAGE/NH_CitationDescriptions_*.csv;
+        LIST @HEALTHCARE.RAW.MY_STAGE/*/NH_CitationDescriptions_*.csv;
     {% endset %}
 
     {% set file_list_results = run_query(list_files_query) %}

@@ -2,7 +2,7 @@
 {% macro load_state_level_health_inspection_cut_points_incremental() %}
 
     {% set list_files_query %}
-        LIST @HEALTHCARE.RAW.MY_STAGE/NH_HlthInspecCutpointsState_*.csv;
+        LIST @HEALTHCARE.RAW.MY_STAGE/*/NH_HlthInspecCutpointsState_*.csv;
     {% endset %}
 
     {% set file_list_results = run_query(list_files_query) %}
