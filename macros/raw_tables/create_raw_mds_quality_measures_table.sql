@@ -3,7 +3,7 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.MDS_QUALITY_MEASURES (
-    "CMS Certification Number (CCN)" NUMBER,
+    "CMS Certification Number (CCN)" STRING,
     "Provider Name" STRING,
     "Provider Address" STRING,
     "City/Town" STRING,
