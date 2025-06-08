@@ -8,7 +8,13 @@
     {% set file_list_results = run_query(list_files_query) %}
 
     {% for row in file_list_results %}
-        {% set file_name = row[1] %}
+        {% set file_url = row[0] %}
+
+        {% if 's3://' in file_url %}
+            {% set file_name = file_url.split('raw/healthcare/')[1] %}
+        {% else %}
+            {% set file_name = file_url %}
+        {% endif %}
 
         {% if file_name.endswith('.csv') and 'NH_QualityMsr_Claims_' in file_name %}
 
