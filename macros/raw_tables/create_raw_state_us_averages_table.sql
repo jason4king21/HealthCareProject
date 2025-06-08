@@ -1,8 +1,18 @@
 
 {% macro create_raw_state_us_averages_table() %}
-    {% call create_table_if_not_exists('STATE_US_AVERAGES') %}
-    CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.STATE_US_AVERAGES (
-        STATE_OR_NATION STRING,
+
+    {% set table_exists_query %}
+        SELECT COUNT(*) 
+        FROM INFORMATION_SCHEMA.TABLES
+        WHERE TABLE_SCHEMA = 'RAW' 
+          AND TABLE_NAME = 'STATE_US_AVERAGES'
+    {% endset %}
+
+    {% set results = run_query(table_exists_query) %}
+    {% if results.columns[0].values()[0] == 0 %}
+
+        CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.STATE_US_AVERAGES (
+            STATE_OR_NATION STRING,
         CYCLE_1_TOTAL_NUMBER_OF_HEALTH_DEFICIENCIES NUMBER,
         CYCLE_1_TOTAL_NUMBER_OF_FIRE_SAFETY_DEFICIENCIES NUMBER,
         CYCLE_2_TOTAL_NUMBER_OF_HEALTH_DEFICIENCIES NUMBER,
@@ -28,6 +38,10 @@
         NUMBER_OF_FINES NUMBER,
         FINE_AMOUNT_IN_DOLLARS NUMBER,
         PROCESSING_DATE DATE
-    );
-    {% endcall %}
+        );
+
+    {% else %}
+        -- Table STATE_US_AVERAGES already exists. Skipping.
+    {% endif %}
+
 {% endmacro %}
