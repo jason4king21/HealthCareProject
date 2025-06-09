@@ -3,7 +3,7 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.SWING_BED_SNF_DATA (
-    "CMS Certification Number (CCN)" NUMBER,
+    "CMS Certification Number (CCN)" STRING,
     "Provider Name" STRING,
     "Address Line 1" STRING,
     "Address Line 2" STRING,
