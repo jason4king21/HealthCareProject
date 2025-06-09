@@ -5,17 +5,35 @@
 ) }}
 
 {% set column_names = [
+    'CMS Certification Number (CCN)',
+    'Provider Name',
+    'Provider Address',
+    'City/Town',
     'State',
-    '5 Stars',
-    '4 Stars',
-    '3 Stars',
-    '2 Stars',
-    '1 Star'
+    'ZIP Code',
+    'Survey Date',
+    'Survey Type',
+    'Deficiency Prefix',
+    'Deficiency Category',
+    'Deficiency Tag Number',
+    'Tag Version',
+    'Deficiency Description',
+    'Scope Severity Code',
+    'Deficiency Corrected',
+    'Correction Date',
+    'Inspection Cycle',
+    'Standard Deficiency',
+    'Complaint Deficiency',
+    'Infection Control Inspection Deficiency',
+    'Citation under IDR',
+    'Citation under IIDR',
+    'Location',
+    'Processing Date'
 ] %}
 
 WITH base_info AS (
     SELECT COUNT(*) AS row_count
-    FROM HEALTHCARE.RAW.STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS
+    FROM HEALTHCARE.RAW.FIRE_SAFETY_DEFICIENCIES
 ), null_counts AS (
     SELECT
         {% for col in column_names %}
@@ -28,11 +46,11 @@ WITH base_info AS (
                 | lower %}
         SUM(CASE WHEN "{{ col }}" IS NULL THEN 1 ELSE 0 END) AS "{{ cleaned_col_name }}_null_count"{% if not loop.last %},{% endif %}
         {% endfor %}
-    FROM HEALTHCARE.RAW.STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS
+    FROM HEALTHCARE.RAW.FIRE_SAFETY_DEFICIENCIES
 )
 
 SELECT
-    'STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS' AS table_name,
+    'FIRE_SAFETY_DEFICIENCIES' AS table_name,
     CURRENT_TIMESTAMP() AS run_date,
     base_info.row_count,
     {% for col in column_names %}

@@ -5,17 +5,28 @@
 ) }}
 
 {% set column_names = [
+    'CMS Certification Number (CCN)',
+    'Provider Name',
+    'Provider Address',
+    'City/Town',
     'State',
-    '5 Stars',
-    '4 Stars',
-    '3 Stars',
-    '2 Stars',
-    '1 Star'
+    'ZIP Code',
+    'Measure Code',
+    'Measure Description',
+    'Resident type',
+    'Adjusted Score',
+    'Observed Score',
+    'Expected Score',
+    'Footnote for Score',
+    'Used in Quality Measure Five Star Rating',
+    'Measure Period',
+    'Location',
+    'Processing Date'
 ] %}
 
 WITH base_info AS (
     SELECT COUNT(*) AS row_count
-    FROM HEALTHCARE.RAW.STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS
+    FROM HEALTHCARE.RAW.MEDICARE_CLAIMS_QUALITY_MEASURES
 ), null_counts AS (
     SELECT
         {% for col in column_names %}
@@ -28,11 +39,11 @@ WITH base_info AS (
                 | lower %}
         SUM(CASE WHEN "{{ col }}" IS NULL THEN 1 ELSE 0 END) AS "{{ cleaned_col_name }}_null_count"{% if not loop.last %},{% endif %}
         {% endfor %}
-    FROM HEALTHCARE.RAW.STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS
+    FROM HEALTHCARE.RAW.MEDICARE_CLAIMS_QUALITY_MEASURES
 )
 
 SELECT
-    'STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS' AS table_name,
+    'MEDICARE_CLAIMS_QUALITY_MEASURES' AS table_name,
     CURRENT_TIMESTAMP() AS run_date,
     base_info.row_count,
     {% for col in column_names %}

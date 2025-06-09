@@ -5,17 +5,31 @@
 ) }}
 
 {% set column_names = [
+    'SNF VBP Program Ranking',
+    'Footnote -- SNF VBP Program Ranking',
+    'CMS Certification Number (CCN)',
+    'Provider Name',
+    'Provider Address',
+    'City/Town',
     'State',
-    '5 Stars',
-    '4 Stars',
-    '3 Stars',
-    '2 Stars',
-    '1 Star'
+    'ZIP Code',
+    'Baseline Period: FY 2019 Risk-Standardized Readmission Rate',
+    'Footnote -- Baseline Period: FY 2019 Risk-Standardized Readmission Rate',
+    'Performance Period: FY 2022 Risk-Standardized Readmission Rate',
+    'Footnote -- Performance Period: FY 2022 Risk-Standardized Readmission Rate',
+    'Achievement Score',
+    'Footnote -- Achievement Score',
+    'Improvement Score',
+    'Footnote -- Improvement Score',
+    'Performance Score',
+    'Footnote -- Performance Score',
+    'Incentive Payment Multiplier',
+    'Footnote -- Incentive Payment Multiplier'
 ] %}
 
 WITH base_info AS (
     SELECT COUNT(*) AS row_count
-    FROM HEALTHCARE.RAW.STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS
+    FROM HEALTHCARE.RAW.FY_2024_SNF_VBP_FACILITY_PERFORMANCE
 ), null_counts AS (
     SELECT
         {% for col in column_names %}
@@ -28,11 +42,11 @@ WITH base_info AS (
                 | lower %}
         SUM(CASE WHEN "{{ col }}" IS NULL THEN 1 ELSE 0 END) AS "{{ cleaned_col_name }}_null_count"{% if not loop.last %},{% endif %}
         {% endfor %}
-    FROM HEALTHCARE.RAW.STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS
+    FROM HEALTHCARE.RAW.FY_2024_SNF_VBP_FACILITY_PERFORMANCE
 )
 
 SELECT
-    'STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS' AS table_name,
+    'FY_2024_SNF_VBP_FACILITY_PERFORMANCE' AS table_name,
     CURRENT_TIMESTAMP() AS run_date,
     base_info.row_count,
     {% for col in column_names %}
