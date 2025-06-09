@@ -44,4 +44,4 @@ SELECT
     '{{ var("target_table") }}' AS table_name,
     base_info.row_count,
     null_counts.*
-FROM base_info, null_counts;
+FROM base_info, null_counts
