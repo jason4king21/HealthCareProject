@@ -1,14 +1,31 @@
 
-# FINAL DBT CLOUD JOB YAML TEMPLATE
+name: Data Quality Monitoring - Healthcare
 
-version: 2
+environment_id: <YOUR_ENVIRONMENT_ID>   # Example: 12345
+project_id: <YOUR_PROJECT_ID>           # Example: 67890
 
-jobs:
-  - name: "Daily RAW Layer Profiling"
-    schedule:
-      cron: "0 6 * * *"  # Run daily at 6am UTC
-      timezone: "UTC"
-    steps:
-      - name: Run RAW Profiling
-        commands:
-          - dbt run-operation profile_all_raw_tables
+triggers:
+  github_webhook: false
+  schedule:
+    cron: "0 6 * * *"      # Daily at 6 AM
+    timezone: "America/Chicago"   # Change to your desired timezone
+    days_of_week: [mon, tue, wed, thu, fri]
+
+steps:
+  - dbt run --select path:models/monitoring
+  - dbt run-operation log_monitoring_run_success --args '{"layer": "profiling", "status": "success"}'
+
+timeout_seconds: 3600  # 1 hour timeout
+
+generate_docs: true
+
+notification_settings:
+  on_failure:
+    emails: ["your_team@your_company.com"]   # Add your team's email here
+  on_success:
+    emails: []
+
+# Notes:
+# - The second step is optional — it can log to a tracking table if you define `log_monitoring_run_success` macro.
+# - You can also add dbt test steps if needed.
+
