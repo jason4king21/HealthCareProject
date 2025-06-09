@@ -1,0 +1,14 @@
+
+# FINAL DBT CLOUD JOB YAML TEMPLATE
+
+version: 2
+
+jobs:
+  - name: "Daily RAW Layer Profiling"
+    schedule:
+      cron: "0 6 * * *"  # Run daily at 6am UTC
+      timezone: "UTC"
+    steps:
+      - name: Run RAW Profiling
+        commands:
+          - dbt run-operation profile_all_raw_tables
