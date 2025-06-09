@@ -11,28 +11,22 @@
     'City/Town',
     'State',
     'ZIP Code',
-    'Survey Date',
-    'Survey Type',
-    'Deficiency Prefix',
-    'Deficiency Category',
-    'Deficiency Tag Number',
-    'Deficiency Description',
-    'Scope Severity Code',
-    'Deficiency Corrected',
-    'Correction Date',
-    'Inspection Cycle',
-    'Standard Deficiency',
-    'Complaint Deficiency',
-    'Infection Control Inspection Deficiency',
-    'Citation under IDR',
-    'Citation under IIDR',
+    'Measure Code',
+    'Measure Description',
+    'Resident type',
+    'Adjusted Score',
+    'Observed Score',
+    'Expected Score',
+    'Footnote for Score',
+    'Used in Quality Measure Five Star Rating',
+    'Measure Period',
     'Location',
     'Processing Date'
 ] %}
 
 WITH base_info AS (
     SELECT COUNT(*) AS row_count
-    FROM HEALTHCARE.RAW.HEALTH_DEFICIENCIES
+    FROM HEALTHCARE.RAW.MEDICARE_CLAIMS_QUALITY_MEASURES
 ), null_counts AS (
     SELECT
         {% for col in column_names %}
@@ -45,11 +39,11 @@ WITH base_info AS (
                 | lower %}
         SUM(CASE WHEN "{{ col }}" IS NULL THEN 1 ELSE 0 END) AS "{{ cleaned_col_name }}_null_count"{% if not loop.last %},{% endif %}
         {% endfor %}
-    FROM HEALTHCARE.RAW.HEALTH_DEFICIENCIES
+    FROM HEALTHCARE.RAW.MEDICARE_CLAIMS_QUALITY_MEASURES
 )
 
 SELECT
-    'HEALTH_DEFICIENCIES' AS table_name,
+    'MEDICARE_CLAIMS_QUALITY_MEASURES' AS table_name,
     CURRENT_TIMESTAMP() AS run_date,
     base_info.row_count,
     {% for col in column_names %}

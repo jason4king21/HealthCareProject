@@ -16,6 +16,7 @@
     'Deficiency Prefix',
     'Deficiency Category',
     'Deficiency Tag Number',
+    'Tag Version',
     'Deficiency Description',
     'Scope Severity Code',
     'Deficiency Corrected',
@@ -32,7 +33,7 @@
 
 WITH base_info AS (
     SELECT COUNT(*) AS row_count
-    FROM HEALTHCARE.RAW.HEALTH_DEFICIENCIES
+    FROM HEALTHCARE.RAW.FIRE_SAFETY_DEFICIENCIES
 ), null_counts AS (
     SELECT
         {% for col in column_names %}
@@ -45,11 +46,11 @@ WITH base_info AS (
                 | lower %}
         SUM(CASE WHEN "{{ col }}" IS NULL THEN 1 ELSE 0 END) AS "{{ cleaned_col_name }}_null_count"{% if not loop.last %},{% endif %}
         {% endfor %}
-    FROM HEALTHCARE.RAW.HEALTH_DEFICIENCIES
+    FROM HEALTHCARE.RAW.FIRE_SAFETY_DEFICIENCIES
 )
 
 SELECT
-    'HEALTH_DEFICIENCIES' AS table_name,
+    'FIRE_SAFETY_DEFICIENCIES' AS table_name,
     CURRENT_TIMESTAMP() AS run_date,
     base_info.row_count,
     {% for col in column_names %}
