@@ -3,7 +3,7 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.HEALTH_DEFICIENCIES (
-    "CMS Certification Number (CCN)" NUMBER,
+    "CMS Certification Number (CCN)" STRING,
     "Provider Name" STRING,
     "Provider Address" STRING,
     "City/Town" STRING,

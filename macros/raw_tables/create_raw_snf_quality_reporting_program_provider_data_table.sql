@@ -3,7 +3,7 @@
 
     {% set sql %}
         CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.SNF_QUALITY_REPORTING_PROGRAM_PROVIDER_DATA (
-    "CMS Certification Number (CCN)" NUMBER,
+    "CMS Certification Number (CCN)" STRING,
     "Provider Name" STRING,
     "Address Line 1" STRING,
     "City/Town" STRING,
