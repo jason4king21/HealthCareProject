@@ -62,4 +62,8 @@ SELECT
             | lower %}
     null_counts."{{ cleaned_col_name }}_null_count" AS "{{ cleaned_col_name }}_null_count"{% if not loop.last %},{% endif %}
     {% endfor %}
+<<<<<<< HEAD
+FROM base_info, null_counts
+=======
 FROM base_info, null_counts;
+>>>>>>> 6f0cdd67d3f24875751ceaca4c27b1593b175a13

@@ -1,7 +1,7 @@
 
 {{ config(
     materialized='incremental',
-    unique_key='table_name || '_' || run_date',
+    unique_key="table_name || '_' || run_date",
     incremental_strategy='insert_overwrite'
 ) }}
 
