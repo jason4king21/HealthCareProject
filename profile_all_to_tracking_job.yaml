@@ -1,0 +1,91 @@
+
+# FINAL FIXED PROFILE ALL TO TRACKING JOB YAML
+
+version: 2
+
+jobs:
+  - name: "Daily RAW Layer Profiling to Tracking Table"
+    schedule:
+      cron: "0 6 * * *"  # Run daily at 6am UTC
+      timezone: "UTC"
+    steps:
+
+      - name: Profile HEALTH_DEFICIENCIES
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "HEALTH_DEFICIENCIES"}'
+
+      - name: Profile STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "STATE_LEVEL_HEALTH_INSPECTION_CUT_POINTS"}'
+
+      - name: Profile OWNERSHIP
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "OWNERSHIP"}'
+
+      - name: Profile PENALTIES
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "PENALTIES"}'
+
+      - name: Profile PROVIDER_INFORMATION
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "PROVIDER_INFORMATION"}'
+
+      - name: Profile CITATION_CODE_LOOKUP
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "CITATION_CODE_LOOKUP"}'
+
+      - name: Profile COVID19_VAX_STATE_NATIONAL_AVERAGES
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "COVID19_VAX_STATE_NATIONAL_AVERAGES"}'
+
+      - name: Profile COVID19_VAX_PROVIDER
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "COVID19_VAX_PROVIDER"}'
+
+      - name: Profile DATA_COLLECTION_INTERVALS
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "DATA_COLLECTION_INTERVALS"}'
+
+      - name: Profile FIRE_SAFETY_DEFICIENCIES
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "FIRE_SAFETY_DEFICIENCIES"}'
+
+      - name: Profile MDS_QUALITY_MEASURES
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "MDS_QUALITY_MEASURES"}'
+
+      - name: Profile STATE_US_AVERAGES
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "STATE_US_AVERAGES"}'
+
+      - name: Profile INSPECTION_DATES
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "INSPECTION_DATES"}'
+
+      - name: Profile SURVEY_SUMMARY
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "SURVEY_SUMMARY"}'
+
+      - name: Profile MEDICARE_CLAIMS_QUALITY_MEASURES
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "MEDICARE_CLAIMS_QUALITY_MEASURES"}'
+
+      - name: Profile FY_2024_SNF_VBP_AGGREGATE_PERFORMANCE
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "FY_2024_SNF_VBP_AGGREGATE_PERFORMANCE"}'
+
+      - name: Profile FY_2024_SNF_VBP_FACILITY_PERFORMANCE
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "FY_2024_SNF_VBP_FACILITY_PERFORMANCE"}'
+
+      - name: Profile SNF_QUALITY_REPORTING_PROGRAM_NATIONAL_DATA
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "SNF_QUALITY_REPORTING_PROGRAM_NATIONAL_DATA"}'
+
+      - name: Profile SNF_QUALITY_REPORTING_PROGRAM_PROVIDER_DATA
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "SNF_QUALITY_REPORTING_PROGRAM_PROVIDER_DATA"}'
+
+      - name: Profile SWING_BED_SNF_DATA
+        commands:
+          - dbt run --select profiling_results_tracking --vars '{"target_table": "SWING_BED_SNF_DATA"}'
