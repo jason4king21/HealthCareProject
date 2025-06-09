@@ -1,0 +1,336 @@
+version: 2
+
+models:
+  - name: stg_provider_info
+    description: "Staging model for Provider Info"
+    columns:
+      - name: CMS_Certification_Number
+        tests:
+          - not_null
+          - unique
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: City_Town
+      - name: State
+        tests:
+          - accepted_values:
+            values: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+            regex: '^\\d{5}(-\\d{4})?$'
+      - name: Ownership_Type
+      - name: Date_First_Approved_to_Provide_Medicare_and_Medicaid_services
+      - name: Abuse_Icon
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Provider_Resides_in_Hospital
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Provider_Changed_Ownership_in_Last_12_Months
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Overall_Rating
+      - name: Staffing_Rating
+      - name: Reported_Total_Nurse_Staffing_Hours_per_Resident_per_Day
+      - name: Number_of_Fines
+      - name: Total_Amount_of_Fines_in_Dollars
+      - name: Number_of_Payment_Denials
+      - name: Total_Number_of_Penalties
+      - name: Latitude
+      - name: Longitude
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+  - name: stg_health_deficiencies
+    description: "Staging model for Health Deficiencies"
+    columns:
+      - name: CMS_Certification_Number
+        tests:
+          - not_null
+          - relationships:
+            to: ref('stg_provider_info')
+            field: CMS_Certification_Number
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: City_Town
+      - name: State
+        tests:
+          - accepted_values:
+            values: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+            regex: '^\\d{5}(-\\d{4})?$'
+      - name: Survey_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+      - name: Survey_Type
+      - name: Deficiency_Prefix
+      - name: Deficiency_Category
+      - name: Deficiency_Tag_Number
+      - name: Deficiency_Description
+      - name: Scope_Severity_Code
+      - name: Deficiency_Corrected
+      - name: Correction_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+      - name: Inspection_Cycle
+      - name: Standard_Deficiency
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Complaint_Deficiency
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Infection_Control_Inspection_Deficiency
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Citation_under_IDR
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Citation_under_IIDR
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+  - name: stg_fire_safety_deficiencies
+    description: "Staging model for Fire Safety Deficiencies"
+    columns:
+      - name: CMS_Certification_Number
+        tests:
+          - not_null
+          - relationships:
+            to: ref('stg_provider_info')
+            field: CMS_Certification_Number
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: City_Town
+      - name: State
+        tests:
+          - accepted_values:
+            values: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+            regex: '^\\d{5}(-\\d{4})?$'
+      - name: Survey_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+      - name: Survey_Type
+      - name: Deficiency_Prefix
+      - name: Deficiency_Category
+      - name: Deficiency_Tag_Number
+      - name: Tag_Version
+      - name: Deficiency_Description
+      - name: Scope_Severity_Code
+      - name: Deficiency_Corrected
+      - name: Correction_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+      - name: Inspection_Cycle
+      - name: Standard_Deficiency
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Complaint_Deficiency
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Infection_Control_Inspection_Deficiency
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Citation_under_IDR
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Citation_under_IIDR
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+  - name: stg_penalties
+    description: "Staging model for Penalties"
+    columns:
+      - name: CMS_Certification_Number
+        tests:
+          - not_null
+          - relationships:
+            to: ref('stg_provider_info')
+            field: CMS_Certification_Number
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: City_Town
+      - name: State
+        tests:
+          - accepted_values:
+            values: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+            regex: '^\\d{5}(-\\d{4})?$'
+      - name: Penalty_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+      - name: Penalty_Type
+      - name: Fine_Amount
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+            min_value: 0
+      - name: Payment_Denial_Start_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+      - name: Payment_Denial_Length_in_Days
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+  - name: stg_quality_measures_mds
+    description: "Staging model for Quality Measures Mds"
+    columns:
+      - name: CMS_Certification_Number
+        tests:
+          - not_null
+          - relationships:
+            to: ref('stg_provider_info')
+            field: CMS_Certification_Number
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: City_Town
+      - name: State
+        tests:
+          - accepted_values:
+            values: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+            regex: '^\\d{5}(-\\d{4})?$'
+      - name: Measure_Code
+      - name: Measure_Description
+      - name: Resident_type
+      - name: Q1_Measure_Score
+      - name: Q2_Measure_Score
+      - name: Q3_Measure_Score
+      - name: Q4_Measure_Score
+      - name: Four_Quarter_Average_Score
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+            min_value: 0
+            max_value: 100
+      - name: Used_in_Quality_Measure_Five_Star_Rating
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Measure_Period
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+  - name: stg_quality_measures_claims
+    description: "Staging model for Quality Measures Claims"
+    columns:
+      - name: CMS_Certification_Number
+        tests:
+          - not_null
+          - relationships:
+            to: ref('stg_provider_info')
+            field: CMS_Certification_Number
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: City_Town
+      - name: State
+        tests:
+          - accepted_values:
+            values: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+            regex: '^\\d{5}(-\\d{4})?$'
+      - name: Measure_Code
+      - name: Measure_Description
+      - name: Resident_type
+      - name: Adjusted_Score
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+            min_value: 0
+            max_value: 100
+      - name: Observed_Score
+      - name: Expected_Score
+      - name: Used_in_Quality_Measure_Five_Star_Rating
+        tests:
+          - accepted_values:
+            values: ['Y','N']
+      - name: Measure_Period
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+  - name: stg_ownership
+    description: "Staging model for Ownership"
+    columns:
+      - name: CMS_Certification_Number
+        tests:
+          - not_null
+          - relationships:
+            to: ref('stg_provider_info')
+            field: CMS_Certification_Number
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: City_Town
+      - name: State
+        tests:
+          - accepted_values:
+            values: ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY']
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+            regex: '^\\d{5}(-\\d{4})?$'
+      - name: Role_played_by_Owner_or_Manager_in_Facility
+      - name: Owner_Type
+      - name: Owner_Name
+      - name: Ownership_Percentage
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+            min_value: 0
+            max_value: 100
+      - name: Association_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+            column_type: DATE
