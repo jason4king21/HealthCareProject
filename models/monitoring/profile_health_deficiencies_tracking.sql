@@ -1,4 +1,3 @@
-
 {{ config(
     materialized='incremental',
     unique_key="table_name || '_' || run_date",
@@ -6,7 +5,29 @@
 ) }}
 
 {% set column_names = [
-'CMS Certification Number (CCN)', 'Provider Name', 'Provider Address', 'City/Town', 'State', 'ZIP Code', 'Survey Date', 'Survey Type', 'Deficiency Prefix', 'Deficiency Category', 'Deficiency Tag Number', 'Deficiency Description', 'Scope Severity Code', 'Deficiency Corrected', 'Correction Date', 'Inspection Cycle', 'Standard Deficiency', 'Complaint Deficiency', 'Infection Control Inspection Deficiency', 'Citation under IDR', 'Citation under IIDR', 'Location', 'Processing Date'
+    'CMS Certification Number (CCN)',
+    'Provider Name',
+    'Provider Address',
+    'City/Town',
+    'State',
+    'ZIP Code',
+    'Survey Date',
+    'Survey Type',
+    'Deficiency Prefix',
+    'Deficiency Category',
+    'Deficiency Tag Number',
+    'Deficiency Description',
+    'Scope Severity Code',
+    'Deficiency Corrected',
+    'Correction Date',
+    'Inspection Cycle',
+    'Standard Deficiency',
+    'Complaint Deficiency',
+    'Infection Control Inspection Deficiency',
+    'Citation under IDR',
+    'Citation under IIDR',
+    'Location',
+    'Processing Date'
 ] %}
 
 WITH base_info AS (
@@ -18,7 +39,14 @@ WITH base_info AS (
 
     SELECT
         {% for col in column_names %}
-        SUM(CASE WHEN "{{ col }}" IS NULL THEN 1 ELSE 0 END) AS "{{ col }}_null_count"{% if not loop.last %},{% endif %}
+            {% set cleaned_col_name = col 
+                | replace(" ", "_")
+                | replace("(", "")
+                | replace(")", "")
+                | replace("/", "_")
+                | replace("-", "_")
+                | lower %}
+        SUM(CASE WHEN "{{ col }}" IS NULL THEN 1 ELSE 0 END) AS "{{ cleaned_col_name }}_null_count"{% if not loop.last %},{% endif %}
         {% endfor %}
     FROM HEALTHCARE.RAW.HEALTH_DEFICIENCIES
 
@@ -29,6 +57,13 @@ SELECT
     CURRENT_TIMESTAMP() AS run_date,
     base_info.row_count,
     {% for col in column_names %}
-    null_counts."{{ col }}_null_count" AS "{{ col }}_null_count"{% if not loop.last %},{% endif %}
+        {% set cleaned_col_name = col 
+            | replace(" ", "_")
+            | replace("(", "")
+            | replace(")", "")
+            | replace("/", "_")
+            | replace("-", "_")
+            | lower %}
+    null_counts."{{ cleaned_col_name }}_null_count" AS "{{ cleaned_col_name }}_null_count"{% if not loop.last %},{% endif %}
     {% endfor %}
-FROM base_info, null_counts;
+FROM base_info, null_counts

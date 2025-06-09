@@ -51,4 +51,4 @@ SELECT
     {% for col in columns_info.columns[0].values() %}
     null_counts."{{ col }}_null_count" AS "{{ col }}_null_count"{% if not loop.last %},{% endif %}
     {% endfor %}
-FROM base_info, null_counts;
+FROM base_info, null_counts
