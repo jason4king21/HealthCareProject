@@ -49,7 +49,7 @@ st.sidebar.header("Select Table")
 selected_table = st.sidebar.selectbox("Choose a table to profile:", table_names)
 df = load_table(selected_table.upper())
 
-st.header(f"Data Preview - {{selected_table}}")
+st.header(f"Data Preview - {selected_table}")
 st.write(df.head())
 
 # Row count
@@ -86,7 +86,7 @@ st.write(f"Number of duplicate rows: {{duplicates_count}}")
 # Outliers (Z-Score > 3)
 st.subheader("Outliers (Z-Score > 3 on numeric columns)")
 numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
-outlier_counts = {{}}
+outlier_counts = {}
 for col in numeric_cols:
     z_scores = np.abs((df[col] - df[col].mean()) / df[col].std())
     outliers = (z_scores > 3).sum()
