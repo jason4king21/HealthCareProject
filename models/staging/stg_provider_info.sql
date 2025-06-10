@@ -108,4 +108,4 @@ SELECT
     "Geocoding Footnote" AS Geocoding_Footnote,
     "Processing Date" AS Processing_Date,
     CURRENT_TIMESTAMP AS ingestion_timestamp
-FROM { source('raw', 'PROVIDER_INFORMATION') }
+FROM { { source('raw', 'PROVIDER_INFORMATION') } }

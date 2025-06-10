@@ -22,4 +22,4 @@ SELECT
     "Location" AS Location,
     "Processing Date" AS Processing_Date,
     CURRENT_TIMESTAMP AS ingestion_timestamp
-FROM { source('raw', 'MEDICARE_CLAIMS_QUALITY_MEASURES') }
+FROM { { source('raw', 'MEDICARE_CLAIMS_QUALITY_MEASURES') } }
