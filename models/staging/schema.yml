@@ -1,0 +1,784 @@
+version: 2
+sources:
+    - name: source
+      database: HEALTHCARE
+      schema: RAW
+
+models:
+  - name: stg_provider_info
+    description: "Staging model for Provider Info"
+    columns:
+      - name: CMS_Certification_Number_CCN
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: CityTown
+      - name: State
+        tests:
+          - accepted_values:
+              values:
+                - AL
+                - AK
+                - AZ
+                - AR
+                - CA
+                - CO
+                - CT
+                - DE
+                - FL
+                - GA
+                - HI
+                - ID
+                - IL
+                - IN
+                - IA
+                - KS
+                - KY
+                - LA
+                - ME
+                - MD
+                - MA
+                - MI
+                - MN
+                - MS
+                - MO
+                - MT
+                - NE
+                - NV
+                - NH
+                - NJ
+                - NM
+                - NY
+                - NC
+                - ND
+                - OH
+                - OK
+                - OR
+                - PA
+                - RI
+                - SC
+                - SD
+                - TN
+                - TX
+                - UT
+                - VT
+                - VA
+                - WA
+                - WV
+                - WI
+                - WY
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: ^\d{5}(-\d{4})?$
+      - name: Telephone_Number
+      - name: Provider_SSA_County_Code
+      - name: CountyParish
+      - name: Ownership_Type
+      - name: Number_of_Certified_Beds
+      - name: Average_Number_of_Residents_per_Day
+      - name: Average_Number_of_Residents_per_Day_Footnote
+      - name: Provider_Type
+      - name: Provider_Resides_in_Hospital
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Legal_Business_Name
+      - name: Date_First_Approved_to_Provide_Medicare_and_Medicaid_Services
+      - name: Affiliated_Entity_Name
+      - name: Affiliated_Entity_ID
+      - name: Continuing_Care_Retirement_Community
+      - name: Special_Focus_Status
+      - name: Abuse_Icon
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Most_Recent_Health_Inspection_More_Than_2_Years_Ago
+      - name: Provider_Changed_Ownership_in_Last_12_Months
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: With_a_Resident_and_Family_Council
+      - name: Automatic_Sprinkler_Systems_in_All_Required_Areas
+      - name: Overall_Rating
+      - name: Overall_Rating_Footnote
+      - name: Health_Inspection_Rating
+      - name: Health_Inspection_Rating_Footnote
+      - name: QM_Rating
+      - name: QM_Rating_Footnote
+      - name: LongStay_QM_Rating
+      - name: LongStay_QM_Rating_Footnote
+      - name: ShortStay_QM_Rating
+      - name: ShortStay_QM_Rating_Footnote
+      - name: Staffing_Rating
+      - name: Staffing_Rating_Footnote
+      - name: Reported_Staffing_Footnote
+      - name: Physical_Therapist_Staffing_Footnote
+      - name: Reported_Nurse_Aide_Staffing_Hours_per_Resident_per_Day
+      - name: Reported_LPN_Staffing_Hours_per_Resident_per_Day
+      - name: Reported_RN_Staffing_Hours_per_Resident_per_Day
+      - name: Reported_Licensed_Staffing_Hours_per_Resident_per_Day
+      - name: Reported_Total_Nurse_Staffing_Hours_per_Resident_per_Day
+      - name: Total_number_of_nurse_staff_hours_per_resident_per_day_on_the_weekend
+      - name: Registered_Nurse_hours_per_resident_per_day_on_the_weekend
+      - name: Reported_Physical_Therapist_Staffing_Hours_per_Resident_Per_Day
+      - name: Total_nursing_staff_turnover
+      - name: Total_nursing_staff_turnover_footnote
+      - name: Registered_Nurse_turnover
+      - name: Registered_Nurse_turnover_footnote
+      - name: Number_of_administrators_who_have_left_the_nursing_home
+      - name: Administrator_turnover_footnote
+      - name: Nursing_CaseMix_Index
+      - name: Nursing_CaseMix_Index_Ratio
+      - name: CaseMix_Nurse_Aide_Staffing_Hours_per_Resident_per_Day
+      - name: CaseMix_LPN_Staffing_Hours_per_Resident_per_Day
+      - name: CaseMix_RN_Staffing_Hours_per_Resident_per_Day
+      - name: CaseMix_Total_Nurse_Staffing_Hours_per_Resident_per_Day
+      - name: CaseMix_Weekend_Total_Nurse_Staffing_Hours_per_Resident_per_Day
+      - name: Adjusted_Nurse_Aide_Staffing_Hours_per_Resident_per_Day
+      - name: Adjusted_LPN_Staffing_Hours_per_Resident_per_Day
+      - name: Adjusted_RN_Staffing_Hours_per_Resident_per_Day
+      - name: Adjusted_Total_Nurse_Staffing_Hours_per_Resident_per_Day
+      - name: Adjusted_Weekend_Total_Nurse_Staffing_Hours_per_Resident_per_Day
+      - name: Rating_Cycle_1_Standard_Survey_Health_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Rating_Cycle_1_Total_Number_of_Health_Deficiencies
+      - name: Rating_Cycle_1_Number_of_Standard_Health_Deficiencies
+      - name: Rating_Cycle_1_Number_of_Complaint_Health_Deficiencies
+      - name: Rating_Cycle_1_Health_Deficiency_Score
+      - name: Rating_Cycle_1_Number_of_Health_Revisits
+      - name: Rating_Cycle_1_Health_Revisit_Score
+      - name: Rating_Cycle_1_Total_Health_Score
+      - name: Rating_Cycle_2_Standard_Health_Survey_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Rating_Cycle_2_Total_Number_of_Health_Deficiencies
+      - name: Rating_Cycle_2_Number_of_Standard_Health_Deficiencies
+      - name: Rating_Cycle_2_Number_of_Complaint_Health_Deficiencies
+      - name: Rating_Cycle_2_Health_Deficiency_Score
+      - name: Rating_Cycle_2_Number_of_Health_Revisits
+      - name: Rating_Cycle_2_Health_Revisit_Score
+      - name: Rating_Cycle_2_Total_Health_Score
+      - name: Rating_Cycle_3_Standard_Health_Survey_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Rating_Cycle_3_Total_Number_of_Health_Deficiencies
+      - name: Rating_Cycle_3_Number_of_Standard_Health_Deficiencies
+      - name: Rating_Cycle_3_Number_of_Complaint_Health_Deficiencies
+      - name: Rating_Cycle_3_Health_Deficiency_Score
+      - name: Rating_Cycle_3_Number_of_Health_Revisits
+      - name: Rating_Cycle_3_Health_Revisit_Score
+      - name: Rating_Cycle_3_Total_Health_Score
+      - name: Total_Weighted_Health_Survey_Score
+      - name: Number_of_Facility_Reported_Incidents
+      - name: Number_of_Substantiated_Complaints
+      - name: Number_of_Citations_from_Infection_Control_Inspections
+      - name: Number_of_Fines
+      - name: Total_Amount_of_Fines_in_Dollars
+      - name: Number_of_Payment_Denials
+      - name: Total_Number_of_Penalties
+      - name: Location
+      - name: Latitude
+      - name: Longitude
+      - name: Geocoding_Footnote
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+  - name: stg_health_deficiencies
+    description: "Staging model for Health Deficiencies"
+    columns:
+      - name: CMS_Certification_Number_CCN
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: CityTown
+      - name: State
+        tests:
+          - accepted_values:
+              values:
+                - AL
+                - AK
+                - AZ
+                - AR
+                - CA
+                - CO
+                - CT
+                - DE
+                - FL
+                - GA
+                - HI
+                - ID
+                - IL
+                - IN
+                - IA
+                - KS
+                - KY
+                - LA
+                - ME
+                - MD
+                - MA
+                - MI
+                - MN
+                - MS
+                - MO
+                - MT
+                - NE
+                - NV
+                - NH
+                - NJ
+                - NM
+                - NY
+                - NC
+                - ND
+                - OH
+                - OK
+                - OR
+                - PA
+                - RI
+                - SC
+                - SD
+                - TN
+                - TX
+                - UT
+                - VT
+                - VA
+                - WA
+                - WV
+                - WI
+                - WY
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: ^\d{5}(-\d{4})?$
+      - name: Survey_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Survey_Type
+      - name: Deficiency_Prefix
+      - name: Deficiency_Category
+      - name: Deficiency_Tag_Number
+      - name: Deficiency_Description
+      - name: Scope_Severity_Code
+      - name: Deficiency_Corrected
+      - name: Correction_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Inspection_Cycle
+      - name: Standard_Deficiency
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Complaint_Deficiency
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Infection_Control_Inspection_Deficiency
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Citation_under_IDR
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Citation_under_IIDR
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+  - name: stg_fire_safety_deficiencies
+    description: "Staging model for Fire Safety Deficiencies"
+    columns:
+      - name: CMS_Certification_Number_CCN
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: CityTown
+      - name: State
+        tests:
+          - accepted_values:
+              values:
+                - AL
+                - AK
+                - AZ
+                - AR
+                - CA
+                - CO
+                - CT
+                - DE
+                - FL
+                - GA
+                - HI
+                - ID
+                - IL
+                - IN
+                - IA
+                - KS
+                - KY
+                - LA
+                - ME
+                - MD
+                - MA
+                - MI
+                - MN
+                - MS
+                - MO
+                - MT
+                - NE
+                - NV
+                - NH
+                - NJ
+                - NM
+                - NY
+                - NC
+                - ND
+                - OH
+                - OK
+                - OR
+                - PA
+                - RI
+                - SC
+                - SD
+                - TN
+                - TX
+                - UT
+                - VT
+                - VA
+                - WA
+                - WV
+                - WI
+                - WY
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: ^\d{5}(-\d{4})?$
+      - name: Survey_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Survey_Type
+      - name: Deficiency_Prefix
+      - name: Deficiency_Category
+      - name: Deficiency_Tag_Number
+      - name: Tag_Version
+      - name: Deficiency_Description
+      - name: Scope_Severity_Code
+      - name: Deficiency_Corrected
+      - name: Correction_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Inspection_Cycle
+      - name: Standard_Deficiency
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Complaint_Deficiency
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Infection_Control_Inspection_Deficiency
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Citation_under_IDR
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Citation_under_IIDR
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+  - name: stg_penalties
+    description: "Staging model for Penalties"
+    columns:
+      - name: CMS_Certification_Number_CCN
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: CityTown
+      - name: State
+        tests:
+          - accepted_values:
+              values:
+                - AL
+                - AK
+                - AZ
+                - AR
+                - CA
+                - CO
+                - CT
+                - DE
+                - FL
+                - GA
+                - HI
+                - ID
+                - IL
+                - IN
+                - IA
+                - KS
+                - KY
+                - LA
+                - ME
+                - MD
+                - MA
+                - MI
+                - MN
+                - MS
+                - MO
+                - MT
+                - NE
+                - NV
+                - NH
+                - NJ
+                - NM
+                - NY
+                - NC
+                - ND
+                - OH
+                - OK
+                - OR
+                - PA
+                - RI
+                - SC
+                - SD
+                - TN
+                - TX
+                - UT
+                - VT
+                - VA
+                - WA
+                - WV
+                - WI
+                - WY
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: ^\d{5}(-\d{4})?$
+      - name: Penalty_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Penalty_Type
+      - name: Fine_Amount
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+      - name: Payment_Denial_Start_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Payment_Denial_Length_in_Days
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+  - name: stg_quality_measures_mds
+    description: "Staging model for Quality Measures Mds"
+    columns:
+      - name: CMS_Certification_Number_CCN
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: CityTown
+      - name: State
+        tests:
+          - accepted_values:
+              values:
+                - AL
+                - AK
+                - AZ
+                - AR
+                - CA
+                - CO
+                - CT
+                - DE
+                - FL
+                - GA
+                - HI
+                - ID
+                - IL
+                - IN
+                - IA
+                - KS
+                - KY
+                - LA
+                - ME
+                - MD
+                - MA
+                - MI
+                - MN
+                - MS
+                - MO
+                - MT
+                - NE
+                - NV
+                - NH
+                - NJ
+                - NM
+                - NY
+                - NC
+                - ND
+                - OH
+                - OK
+                - OR
+                - PA
+                - RI
+                - SC
+                - SD
+                - TN
+                - TX
+                - UT
+                - VT
+                - VA
+                - WA
+                - WV
+                - WI
+                - WY
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: ^\d{5}(-\d{4})?$
+      - name: Measure_Code
+      - name: Measure_Description
+      - name: Resident_type
+      - name: Q1_Measure_Score
+      - name: Footnote_for_Q1_Measure_Score
+      - name: Q2_Measure_Score
+      - name: Footnote_for_Q2_Measure_Score
+      - name: Q3_Measure_Score
+      - name: Footnote_for_Q3_Measure_Score
+      - name: Q4_Measure_Score
+      - name: Footnote_for_Q4_Measure_Score
+      - name: Four_Quarter_Average_Score
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+      - name: Footnote_for_Four_Quarter_Average_Score
+      - name: Used_in_Quality_Measure_Five_Star_Rating
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Measure_Period
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+  - name: stg_quality_measures_claims
+    description: "Staging model for Quality Measures Claims"
+    columns:
+      - name: CMS_Certification_Number_CCN
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: CityTown
+      - name: State
+        tests:
+          - accepted_values:
+              values:
+                - AL
+                - AK
+                - AZ
+                - AR
+                - CA
+                - CO
+                - CT
+                - DE
+                - FL
+                - GA
+                - HI
+                - ID
+                - IL
+                - IN
+                - IA
+                - KS
+                - KY
+                - LA
+                - ME
+                - MD
+                - MA
+                - MI
+                - MN
+                - MS
+                - MO
+                - MT
+                - NE
+                - NV
+                - NH
+                - NJ
+                - NM
+                - NY
+                - NC
+                - ND
+                - OH
+                - OK
+                - OR
+                - PA
+                - RI
+                - SC
+                - SD
+                - TN
+                - TX
+                - UT
+                - VT
+                - VA
+                - WA
+                - WV
+                - WI
+                - WY
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: ^\d{5}(-\d{4})?$
+      - name: Measure_Code
+      - name: Measure_Description
+      - name: Resident_type
+      - name: Adjusted_Score
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+      - name: Observed_Score
+      - name: Expected_Score
+      - name: Footnote_for_Score
+      - name: Used_in_Quality_Measure_Five_Star_Rating
+        tests:
+          - accepted_values:
+              values:
+                - Y
+                - N
+      - name: Measure_Period
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+  - name: stg_ownership
+    description: "Staging model for Ownership"
+    columns:
+      - name: CMS_Certification_Number_CCN
+      - name: Provider_Name
+      - name: Provider_Address
+      - name: CityTown
+      - name: State
+        tests:
+          - accepted_values:
+              values:
+                - AL
+                - AK
+                - AZ
+                - AR
+                - CA
+                - CO
+                - CT
+                - DE
+                - FL
+                - GA
+                - HI
+                - ID
+                - IL
+                - IN
+                - IA
+                - KS
+                - KY
+                - LA
+                - ME
+                - MD
+                - MA
+                - MI
+                - MN
+                - MS
+                - MO
+                - MT
+                - NE
+                - NV
+                - NH
+                - NJ
+                - NM
+                - NY
+                - NC
+                - ND
+                - OH
+                - OK
+                - OR
+                - PA
+                - RI
+                - SC
+                - SD
+                - TN
+                - TX
+                - UT
+                - VT
+                - VA
+                - WA
+                - WV
+                - WI
+                - WY
+      - name: ZIP_Code
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: ^\d{5}(-\d{4})?$
+      - name: Role_played_by_Owner_or_Manager_in_Facility
+      - name: Owner_Type
+      - name: Owner_Name
+      - name: Ownership_Percentage
+        tests:
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+      - name: Association_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
+      - name: Location
+      - name: Processing_Date
+        tests:
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
