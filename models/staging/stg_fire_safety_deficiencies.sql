@@ -29,4 +29,4 @@ SELECT
     "Location" AS Location,
     "Processing Date" AS Processing_Date,
     CURRENT_TIMESTAMP AS ingestion_timestamp
-FROM { { source('raw', 'FIRE_SAFETY_DEFICIENCIES') } }
+FROM { source('raw', 'FIRE_SAFETY_DEFICIENCIES') }
