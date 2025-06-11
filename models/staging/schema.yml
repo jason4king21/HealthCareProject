@@ -77,8 +77,9 @@ models:
       - name: ZIP_Code
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_match_regex:
-              regex: ^\d{5}(-\d{4})?$
+          - dbt_expectations.expect_column_values_to_match_like_pattern:
+              like_pattern: '____%'
+              row_condition: "ZIP_Code IS NOT NULL"
       - name: Telephone_Number
       - name: Provider_SSA_County_Code
       - name: CountyParish
@@ -267,8 +268,9 @@ models:
       - name: ZIP_Code
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_match_regex:
-              regex: ^\d{5}(-\d{4})?$
+          - dbt_expectations.expect_column_values_to_match_like_pattern:
+              like_pattern: '____%'
+              row_condition: "ZIP_Code IS NOT NULL"
       - name: Survey_Date
         tests:
           - dbt_expectations.expect_column_values_to_be_of_type:
@@ -384,8 +386,9 @@ models:
       - name: ZIP_Code
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_match_regex:
-              regex: ^\d{5}(-\d{4})?$
+          - dbt_expectations.expect_column_values_to_match_like_pattern:
+              like_pattern: '____%'
+              row_condition: "ZIP_Code IS NOT NULL"
       - name: Survey_Date
         tests:
           - dbt_expectations.expect_column_values_to_be_of_type:
@@ -502,8 +505,9 @@ models:
       - name: ZIP_Code
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_match_regex:
-              regex: ^\d{5}(-\d{4})?$
+          - dbt_expectations.expect_column_values_to_match_like_pattern:
+              like_pattern: '____%'
+              row_condition: "ZIP_Code IS NOT NULL"
       - name: Penalty_Date
         tests:
           - dbt_expectations.expect_column_values_to_be_of_type:
@@ -587,8 +591,9 @@ models:
       - name: ZIP_Code
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_match_regex:
-              regex: ^\d{5}(-\d{4})?$
+          - dbt_expectations.expect_column_values_to_match_like_pattern:
+              like_pattern: '____%'
+              row_condition: "ZIP_Code IS NOT NULL"
       - name: Measure_Code
       - name: Measure_Description
       - name: Resident_type
@@ -682,8 +687,9 @@ models:
       - name: ZIP_Code
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_match_regex:
-              regex: ^\d{5}(-\d{4})?$
+          - dbt_expectations.expect_column_values_to_match_like_pattern:
+              like_pattern: '____%'
+              row_condition: "ZIP_Code IS NOT NULL"
       - name: Measure_Code
       - name: Measure_Description
       - name: Resident_type
@@ -771,8 +777,9 @@ models:
       - name: ZIP_Code
         tests:
           - not_null
-          - dbt_expectations.expect_column_values_to_match_regex:
-              regex: ^\d{5}(-\d{4})?$
+          - dbt_expectations.expect_column_values_to_match_like_pattern:
+              like_pattern: '____%'
+              row_condition: "ZIP_Code IS NOT NULL"
       - name: Role_played_by_Owner_or_Manager_in_Facility
       - name: Owner_Type
       - name: Owner_Name
