@@ -9,7 +9,7 @@ SELECT
     "Provider Address" AS Provider_Address,
     "City/Town" AS CityTown,
     "State" AS State,
-    "ZIP Code" AS ZIP_Code,
+    NULLIF(REGEXP_REPLACE(TRIM("ZIP Code"), '[^0-9\\-]', ''), '') AS ZIP_Code,
     "Telephone Number" AS Telephone_Number,
     "Provider SSA County Code" AS Provider_SSA_County_Code,
     "County/Parish" AS CountyParish,
@@ -70,23 +70,26 @@ SELECT
     "Adjusted RN Staffing Hours per Resident per Day" AS Adjusted_RN_Staffing_Hours_per_Resident_per_Day,
     "Adjusted Total Nurse Staffing Hours per Resident per Day" AS Adjusted_Total_Nurse_Staffing_Hours_per_Resident_per_Day,
     "Adjusted Weekend Total Nurse Staffing Hours per Resident per Day" AS Adjusted_Weekend_Total_Nurse_Staffing_Hours_per_Resident_per_Day,
-    "Rating Cycle 1 Standard Survey Health Date" AS Rating_Cycle_1_Standard_Survey_Health_Date,
-    "Rating Cycle 1 Total Number of Health Deficiencies" AS Rating_Cycle_1_Total_Number_of_Health_Deficiencies,
-    "Rating Cycle 1 Number of Standard Health Deficiencies" AS Rating_Cycle_1_Number_of_Standard_Health_Deficiencies,
-    "Rating Cycle 1 Number of Complaint Health Deficiencies" AS Rating_Cycle_1_Number_of_Complaint_Health_Deficiencies,
-    "Rating Cycle 1 Health Deficiency Score" AS Rating_Cycle_1_Health_Deficiency_Score,
-    "Rating Cycle 1 Number of Health Revisits" AS Rating_Cycle_1_Number_of_Health_Revisits,
-    "Rating Cycle 1 Health Revisit Score" AS Rating_Cycle_1_Health_Revisit_Score,
-    "Rating Cycle 1 Total Health Score" AS Rating_Cycle_1_Total_Health_Score,
-    "Rating Cycle 2 Standard Health Survey Date" AS Rating_Cycle_2_Standard_Health_Survey_Date,
-    "Rating Cycle 2 Total Number of Health Deficiencies" AS Rating_Cycle_2_Total_Number_of_Health_Deficiencies,
-    "Rating Cycle 2 Number of Standard Health Deficiencies" AS Rating_Cycle_2_Number_of_Standard_Health_Deficiencies,
-    "Rating Cycle 2 Number of Complaint Health Deficiencies" AS Rating_Cycle_2_Number_of_Complaint_Health_Deficiencies,
-    "Rating Cycle 2 Health Deficiency Score" AS Rating_Cycle_2_Health_Deficiency_Score,
-    "Rating Cycle 2 Number of Health Revisits" AS Rating_Cycle_2_Number_of_Health_Revisits,
-    "Rating Cycle 2 Health Revisit Score" AS Rating_Cycle_2_Health_Revisit_Score,
-    "Rating Cycle 2 Total Health Score" AS Rating_Cycle_2_Total_Health_Score,
-    "Rating Cycle 3 Standard Health Survey Date" AS Rating_Cycle_3_Standard_Health_Survey_Date,
+
+    -- DATE columns with proper pattern:
+    CASE
+        WHEN TRY_TO_DATE("Rating Cycle 1 Standard Survey Health Date") IS NOT NULL
+        THEN CAST(TRY_TO_DATE("Rating Cycle 1 Standard Survey Health Date") AS DATE)
+        ELSE NULL
+    END AS Rating_Cycle_1_Standard_Survey_Health_Date,
+
+    CASE
+        WHEN TRY_TO_DATE("Rating Cycle 2 Standard Health Survey Date") IS NOT NULL
+        THEN CAST(TRY_TO_DATE("Rating Cycle 2 Standard Health Survey Date") AS DATE)
+        ELSE NULL
+    END AS Rating_Cycle_2_Standard_Health_Survey_Date,
+
+    CASE
+        WHEN TRY_TO_DATE("Rating Cycle 3 Standard Health Survey Date") IS NOT NULL
+        THEN CAST(TRY_TO_DATE("Rating Cycle 3 Standard Health Survey Date") AS DATE)
+        ELSE NULL
+    END AS Rating_Cycle_3_Standard_Health_Survey_Date,
+
     "Rating Cycle 3 Total Number of Health Deficiencies" AS Rating_Cycle_3_Total_Number_of_Health_Deficiencies,
     "Rating Cycle 3 Number of Standard Health Deficiencies" AS Rating_Cycle_3_Number_of_Standard_Health_Deficiencies,
     "Rating Cycle 3 Number of Complaint Health Deficiencies" AS Rating_Cycle_3_Number_of_Complaint_Health_Deficiencies,
@@ -106,6 +109,27 @@ SELECT
     "Latitude" AS Latitude,
     "Longitude" AS Longitude,
     "Geocoding Footnote" AS Geocoding_Footnote,
-    "Processing Date" AS Processing_Date,
+
+    -- Processing Date with correct pattern:
+    CASE
+        WHEN TRY_TO_DATE("Processing Date") IS NOT NULL
+        THEN CAST(TRY_TO_DATE("Processing Date") AS DATE)
+        ELSE NULL
+    END AS Processing_Date,
+
     CURRENT_TIMESTAMP AS ingestion_timestamp
+
 FROM {{ source('source', 'PROVIDER_INFORMATION') }}
+
+WHERE 1=1
+  AND State IN ('AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY')
+  AND ZIP_Code IS NOT NULL
+  AND ZIP_Code <> ''
+  AND TRIM(ZIP_Code) RLIKE '^\\d{5}(-\\d{4})?$'
+  AND Provider_Resides_in_Hospital IN ('Y','N')
+  AND Abuse_Icon IN ('Y','N')
+  AND Provider_Changed_Ownership_in_Last_12_Months IN ('Y','N')
+  AND Rating_Cycle_1_Standard_Survey_Health_Date IS NOT NULL
+  AND Rating_Cycle_2_Standard_Health_Survey_Date IS NOT NULL
+  AND Rating_Cycle_3_Standard_Health_Survey_Date IS NOT NULL
+  AND Processing_Date IS NOT NULL
