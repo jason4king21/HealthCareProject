@@ -28,4 +28,4 @@ SELECT
     "Location" AS Location,
     "Processing Date" AS Processing_Date,
     CURRENT_TIMESTAMP AS ingestion_timestamp
-FROM { source('raw', 'HEALTH_DEFICIENCIES') }
+FROM {{ source('source', 'HEALTH_DEFICIENCIES') }}
