@@ -35,6 +35,7 @@
                         TYPE = CSV
                         FIELD_OPTIONALLY_ENCLOSED_BY = '"'
                         PARSE_HEADER = TRUE
+                        REPLACE_INVALID_CHARACTERS = TRUE
                     )
                     MATCH_BY_COLUMN_NAME = CASE_INSENSITIVE;
                 {% endset %}

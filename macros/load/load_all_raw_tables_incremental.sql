@@ -20,7 +20,7 @@
     {% do load_snf_quality_reporting_program_national_data_incremental() %}
     {% do load_snf_quality_reporting_program_provider_data_incremental() %}
     {% do load_swing_bed_snf_data_incremental() %}
-    {% do oad_daily_nurse_staffing_incremental() %}
+    {% do load_daily_nurse_staffing_incremental() %}
 
 
 {% endmacro %}
