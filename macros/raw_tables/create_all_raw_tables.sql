@@ -20,5 +20,7 @@
     {% do create_raw_snf_quality_reporting_program_national_data_table() %}
     {% do create_raw_snf_quality_reporting_program_provider_data_table() %}
     {% do create_raw_swing_bed_snf_data_table() %}
+    {% do create_raw_daily_nurse_staffing() %}
+    
 
 {% endmacro %}

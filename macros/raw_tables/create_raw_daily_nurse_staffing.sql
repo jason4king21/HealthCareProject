@@ -1,0 +1,43 @@
+{% macro create_raw_daily_nurse_staffing() %}
+
+  {% set sql %}
+    CREATE TABLE IF NOT EXISTS HEALTHCARE.RAW.DAILY_NURSE_STAFFING (
+      PROVNUM STRING,
+      PROVNAME STRING,
+      CITY STRING,
+      STATE STRING,
+      COUNTY_NAME STRING,
+      COUNTY_FIPS STRING,
+      CY_QTR STRING,          
+      WORKDATE STRING,       
+      MDSCENSUS NUMBER,       
+      HRS_RNDON NUMBER,
+      HRS_RNDON_EMP NUMBER,
+      HRS_RNDON_CTR NUMBER,
+      HRS_RNADMIN NUMBER,
+      HRS_RNADMIN_EMP NUMBER,
+      HRS_RNADMIN_CTR NUMBER,
+      HRS_RN NUMBER,
+      HRS_RN_EMP NUMBER,
+      HRS_RN_CTR NUMBER,
+      HRS_LPNADMIN NUMBER,
+      HRS_LPNADMIN_EMP NUMBER,
+      HRS_LPNADMIN_CTR NUMBER,
+      HRS_LPN NUMBER,
+      HRS_LPN_EMP NUMBER,
+      HRS_LPN_CTR NUMBER,
+      HRS_CNA NUMBER,
+      HRS_CNA_EMP NUMBER,
+      HRS_CNA_CTR NUMBER,
+      HRS_NATRN NUMBER,
+      HRS_NATRN_EMP NUMBER,
+      HRS_NATRN_CTR NUMBER,
+      HRS_MED_AIDE NUMBER,
+      HRS_MED_AIDE_EMP NUMBER,
+      HRS_MED_AIDE_CTR NUMBER
+    );
+  {% endset %}
+
+  {% do run_query(sql) %}
+
+{% endmacro %}
