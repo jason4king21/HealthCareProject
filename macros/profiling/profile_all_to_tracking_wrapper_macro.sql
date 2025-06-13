@@ -21,7 +21,8 @@
         "FY_2024_SNF_VBP_FACILITY_PERFORMANCE",
         "SNF_QUALITY_REPORTING_PROGRAM_NATIONAL_DATA",
         "SNF_QUALITY_REPORTING_PROGRAM_PROVIDER_DATA",
-        "SWING_BED_SNF_DATA"
+        "SWING_BED_SNF_DATA",
+        "DAILY_NURSE_STAFFING"
     ] %}
 
     {% for table_name in raw_tables %}

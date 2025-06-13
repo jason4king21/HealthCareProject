@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: healthcare_raw
+    schema: RAWdb
+    database: HEALTHCARE
+    tables:
+      - name: DAILY_NURSE_STAFFING
