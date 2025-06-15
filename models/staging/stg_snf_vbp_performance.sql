@@ -2,7 +2,7 @@
 
 with raw as (
   select
-    cast(CCN as varchar) as cms_certification_number_ccn,
+    cast("CMS Certification Number (CCN)" as varchar) as cms_certification_number_ccn,
     measure_id,
     measure_name,
     cast(result as float) as measure_result,

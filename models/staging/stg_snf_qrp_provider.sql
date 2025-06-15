@@ -1,7 +1,7 @@
 {{ config(materialized='table') }}
 
 select
-  cast(CCN as varchar) as cms_certification_number_ccn,
+  cast("CMS Certification Number (CCN)" as varchar) as cms_certification_number_ccn,
   QRP_Measure_ID as measure_id,
   QRP_Measure_Description as measure_name,
   cast(QRP_Percent as float) as measure_result,
