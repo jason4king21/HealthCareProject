@@ -1,6 +1,6 @@
 version: 2
 sources:
-    - name: source
+    - name: RAW
       database: HEALTHCARE
       schema: RAW
       tables:
@@ -13,6 +13,11 @@ sources:
         - name: PROVIDER_INFORMATION
         - name: MDS_QUALITY_MEASURES
         - name: daily_nurse_staffing
+        - name: FY_2024_SNF_VBP_AGGREGATE_PERFORMANCE
+        - name: SNF_QUALITY_REPORTING_PROGRAM_PROVIDER_DATA
+        - name: FY_2024_SNF_VBP_FACILITY_PERFORMANCE
+        
+        
 models:
   - name: stg_provider_info
     description: "Staging model for Provider Info"

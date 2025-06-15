@@ -32,7 +32,7 @@ SELECT
     "Location" AS Location,
     TRY_TO_DATE("Processing Date") AS Processing_Date,
     CURRENT_TIMESTAMP AS ingestion_timestamp
-FROM {{ source('source', 'HEALTH_DEFICIENCIES') }}
+FROM {{ source('RAW', 'HEALTH_DEFICIENCIES') }}
 WHERE 1=1
   AND State IN ('AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY')
   AND ZIP_Code IS NOT NULL
