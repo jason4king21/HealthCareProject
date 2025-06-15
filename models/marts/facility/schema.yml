@@ -1,0 +1,77 @@
+version: 2
+
+models:
+  - name: mart_facility_occupancy
+    description: |
+      Occupancy rate per facility by month, calculated as avg residents / certified beds.
+    columns:
+      - name: provider_id
+        description: CMS Certification Number.
+        tests:
+          - not_null
+      - name: month
+        description: Month of ingestion_timestamp aggregation.
+        tests:
+          - not_null
+      - name: avg_residents
+        description: Average number of residents per day.
+      - name: avg_certified_beds
+        description: Average number of certified beds.
+      - name: occupancy_rate
+        description: Ratio of avg residents to avg certified beds.
+        tests:
+          - relationships:
+              to: ref('stg_provider_info')
+              field: provider_id
+
+  - name: mart_staffing_vs_occupancy_breakdown
+    description: |
+      Monthly totals of RN/LPN/Aide staffing hours and occupancy rate per facility.
+    columns:
+      - name: provider_id
+        description: CMS Certification Number.
+        tests:
+          - not_null
+      - name: month
+        description: Calendar month of measurement.
+        tests:
+          - not_null
+      - name: avg_rn_hrs
+        description: Average reported RN hours per resident per day.
+      - name: avg_lpn_hrs
+        description: Average reported LPN hours per resident per day.
+      - name: avg_aide_hrs
+        description: Average reported aide hours per resident per day.
+      - name: occupancy_rate
+        description: Ratio of avg residents to avg certified beds.
+
+  - name: mart_top10_throughput
+    description: |
+      Top 10 facilities by average daily residents (throughput).
+    columns:
+      - name: provider_id
+        description: CMS Certification Number.
+        tests:
+          - not_null
+      - name: provider_name
+        description: Facility name.
+      - name: avg_daily_residents
+        description: Average daily resident count.
+        tests:
+          - not_null
+
+  - name: mart_low_staffing_breakdown_alerts
+    description: |
+      Facilities with lowest RN/LPN/aide hours per resident per month.
+    columns:
+      - name: provider_id
+        description: CMS CCN.
+        tests:
+          - not_null
+      - name: provider_name
+        description: Facility name.
+      - name: month
+        description: Month of period.
+      - name: rn_hrs_per_resident
+      - name: lpn_hrs_per_resident
+      - name: aide_hrs_per_resident
