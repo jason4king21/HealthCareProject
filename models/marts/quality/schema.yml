@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: mart_readmission_rates
+    description: |
+      Facility-level 30-day all-cause SNF readmission rates joined with state and period.
+    columns:
+      - name: provider_id
+        description: CMS Certification Number of the SNF.
+        tests:
+          - not_null
+      - name: state
+        description: Two-letter state abbreviation.
+        tests:
+          - not_null
+      - name: period_start
+        description: Start date of the reporting period.
+      - name: period_end
+        description: End date of the reporting period.
+      - name: readmission_rate
+        description: SNF Readmission rate (SNFRM) during the period.
+
+
+  - name: mart_staffing_readmission_correlation_by_state
+    description: |
+      Computes the Pearson correlation between total nurse staffing hours per resident-day and readmission rate, grouped by state.
+    columns:
+      - name: state
+        description: Two-letter state abbreviation.
+        tests:
+          - not_null
+      - name: pearson_corr
+        description: Pearson correlation coefficient of staffing vs. readmission.
+      - name: observations
+        description: Number of provider-period records used in correlation calculation.
+        tests:
+          - not_null
+
+
+  - name: mart_complaint_ratio
+    description: |
+      Calculates complaints per nurse-hour for each facility per month.
+    columns:
+      - name: provider_id
+        description: CMS Certification Number of the SNF.
+        tests:
+          - not_null
+      - name: state
+        description: Two-letter state abbreviation.
+      - name: month
+        description: Month of aggregation.
+      - name: avg_complaints
+        description: Average number of substantiated complaints per month.
+      - name: avg_nurse_hours
+        description: Average total nurse staffing hours per month.
+      - name: complaints_per_nurse_hour
+        description: The ratio of avg complaints to avg nurse hours.

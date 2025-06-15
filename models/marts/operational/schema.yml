@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: mart_daily_staffing_intensity
+    description: |
+      Daily nurse staffing intensity per facility, normalized by resident census.
+    columns:
+      - name: provider_id
+        description: CMS certification number (CCN) of the facility.
+        tests:
+          - not_null
+      - name: state
+        description: Two-letter state abbreviation.
+        tests:
+          - not_null
+      - name: work_date
+        description: Date of staffing record.
+      - name: rn_hrs_per_resident
+        description: RN hours per resident on that day.
+      - name: lpn_hrs_per_resident
+        description: LPN hours per resident on that day.
+      - name: aide_hrs_per_resident
+        description: Aide hours per resident on that day.
+      - name: total_hrs_per_resident
+        description: Total nurse hours per resident (RN+LPN+Aide).
+ 
+
+  - name: mart_peak_staffing_day
+    description: |
+      The day of the week (1=Sunday … 7=Saturday) with the highest average staffing intensity per facility.
+    columns:
+      - name: state
+        tests:
+          - not_null
+      - name: day_of_week
+        description: Day of week for peak staffing.
+      - name: avg_daily_intensity
+        description: Avg total nurse hours per resident for that day of week.
+
+
+  - name: mart_perm_vs_contract_ratio
+    description: |
+      Ratio of permanent-to-total nurse hours by facility, based on PBJ staffing breakdown.
+    columns:
+      - name: provider_id
+        tests:
+          - not_null
+      - name: state
+        tests:
+          - not_null
+      - name: perm_hours
+        description: Sum of employee nursing hours.
+        tests:
+          - not_null
+      - name: contract_hours
+        description: Sum of contract nursing hours.
+        tests:
+          - not_null
+      - name: pct_permanent_staff
+        description: Percentage of staffing supplied by permanent employees.
+
+
+  - name: mart_nurse_attrition_trends
+    description: |
+      Time series of nursing staff turnover rates per facility.
+    columns:
+      - name: provider_id
+        tests:
+          - not_null
+      - name: state
+        tests:
+          - not_null
+      - name: as_of_date
+        description: Processing date of the provider info snapshot.
+        tests:
+          - not_null
+      - name: total_nursing_staff_turnover
+        description: Total nurse turnover rate from provider info.
+      - name: registered_nurse_turnover
+        description: RN turnover rate from provider info.

@@ -42,6 +42,7 @@ casted as (
     coalesce(hrs_med_aide::numeric, 0)               as hrs_med_aide,
     coalesce(hrs_med_aide_emp::numeric, 0)           as hrs_med_aide_emp,
     coalesce(hrs_med_aide_ctr::numeric, 0)           as hrs_med_aide_ctr
+    
   from source
 ),
 
@@ -49,7 +50,8 @@ cleaned as (
   select
     *,
     trim(provname) as provname_trimmed,
-    coalesce(provnum, 'UNKNOWN') as provnum_filled
+    coalesce(provnum, 'UNKNOWN') as provnum_filled,
+    Hrs_RN + Hrs_LPN + Hrs_CNA + Hrs_NAtrn + Hrs_Med_Aide as total_nurse_hours
   from casted
   where state in (
     'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA',
