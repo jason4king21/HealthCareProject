@@ -1,6 +1,42 @@
 version: 2
 
 models:
+  - name: mart_staffing_occupancy_correlation
+    description: "Calculates per-facility and overall Pearson correlation between nurse staffing intensity and occupancy rate"
+    columns:
+      - name: provider_id
+        description: "Facility identifier, 'ALL' for overall aggregate"
+        tests:
+          - not_null
+      - name: pearson_corr
+        description: "Pearson correlation coefficient between staffing intensity & occupancy"
+      - name: observation_days
+      - name: avg_staff_intensity
+      - name: avg_occupancy_rate
+
+  - name: mart_monthly_nurse_hours
+    description: "Aggregated total nurse hours per provider, state, and month"
+    columns:
+      - name: provider_id
+        description: "Facility ID (provnum)"
+        tests:
+          - not_null
+      - name: state
+        description: "Facility state"
+        tests:
+          - not_null
+      - name: month
+        description: "Month (truncated from workdate)"
+        tests:
+          - not_null
+      - name: total_nurse_hours
+        description: "Total nurse hours worked in that month"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+
+
   - name: mart_daily_staffing_intensity
     description: |
       Daily nurse staffing intensity per facility, normalized by resident census.
