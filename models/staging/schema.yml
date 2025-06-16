@@ -18,8 +18,68 @@ sources:
         - name: SNF_QUALITY_REPORTING_PROGRAM_PROVIDER_DATA
         - name: FY_2024_SNF_VBP_FACILITY_PERFORMANCE
         - name: SNF_QUALITY_REPORTING_PROGRAM_NATIONAL_DATA
+        - name: STATE_US_AVERAGES
 
 models:
+  - name: stg_state_us_averages
+    description: |
+      Staging model for state-level and national average metrics including readmission, ED visits,
+      healthcare deficiencies, staffing, and quality outcomes.
+    columns:
+      - name: state_or_nation
+        description: "State abbreviation or 'Nation' for the national aggregate"
+      - name: cycle_1_health_deficiencies
+      - name: cycle_1_fire_safety_deficiencies
+      - name: cycle_2_health_deficiencies
+      - name: cycle_2_fire_safety_deficiencies
+      - name: cycle_3_health_deficiencies
+      - name: cycle_3_fire_safety_deficiencies
+      - name: avg_residents_per_day
+      - name: reported_nurse_aide_hours_per_resident
+      - name: reported_lpn_hours_per_resident
+      - name: reported_rn_hours_per_resident
+      - name: reported_licensed_staff_hours_per_resident
+      - name: reported_total_nurse_staff_hours_per_resident
+      - name: weekend_nurse_staff_hours_per_resident
+      - name: weekend_rn_hours_per_resident
+      - name: reported_physical_therapist_hours_per_resident
+      - name: total_nurse_staff_turnover
+      - name: rn_turnover
+      - name: admin_departures
+      - name: nursing_casemix_index
+      - name: casemix_rn_hours_per_resident
+      - name: casemix_total_nurse_staff_hours_per_resident
+      - name: casemix_weekend_nurse_staff_hours_per_resident
+      - name: num_fines
+      - name: fine_amount_dollars
+      - name: pct_longstay_help_need_increased
+      - name: pct_longstay_weight_loss
+      - name: pct_low_risk_longstay_incontinence
+      - name: pct_longstay_catheter_usage
+      - name: pct_longstay_uti
+      - name: pct_longstay_depression
+      - name: pct_longstay_restraints
+      - name: pct_longstay_falls_with_injury
+      - name: pct_longstay_pneumococcal_vax
+      - name: pct_longstay_antipsychotic_med
+      - name: pct_shortstay_pneumococcal_vax
+      - name: pct_shortstay_antipsychotic_med
+      - name: pct_longstay_mobility_worsened
+      - name: pct_longstay_antianxiety_med
+      - name: pct_highrisk_longstay_pressure_ulcers
+      - name: pct_longstay_influenza_vax
+      - name: pct_shortstay_function_improved
+      - name: pct_shortstay_influenza_vax
+      - name: pct_shortstay_rehospitalized
+      - name: pct_shortstay_ed_visit
+      - name: hosp_per_1000_longstay_resident_days
+      - name: ed_per_1000_longstay_resident_days
+      - name: processing_date
+        description: "Date when the raw data was processed"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: DATE
   - name: stg_provider_info
     description: "Staging model for Provider Information"
     columns:
